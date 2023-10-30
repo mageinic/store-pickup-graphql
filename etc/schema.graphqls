@@ -1,0 +1,157 @@
+# MageINIC
+# Copyright (C) 2023 MageINIC <support@mageinic.com>
+#
+# NOTICE OF LICENSE
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category MageINIC
+# @package MageINIC_StorePickUpGraphQl
+# @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+# @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+# @author MageINIC <support@mageinic.com>
+
+type StoreConfig {
+    store_pickup_enable: Boolean @doc(description: "Enable Store Pickup")
+    store_pickup_store_link_title: String @doc(description: "Receive Store Link Title")
+    store_pickup_store_link_location: String @doc(description: "Receive Store Pickup Link Location")
+    store_pickup_google_api: String @doc(description: "Receive Google Map API")
+    store_pickup_frontend_url: String @doc(description: "Receive Store Pickup Frontend route")
+    store_pickup_meta_title: String @doc(description: "Receive Store Pickup Meta Title")
+    store_pickup_meta_description: String @doc(description: "Receive Store Pickup Meta Description")
+    store_pickup_meta_keywords: String @doc(description: "Receive Store Pickup Meta Keywords")
+    store_pickup_default_radius: String @doc(description: "Receive Store Pickup Default Radius")
+    store_pickup_max_radius: String @doc(description: "Receive Store Pickup Max Radius")
+    store_pickup_length_option: String  @doc(description: "Receive Store Pickup Length Options")
+}
+
+type Query {
+    StorePickupList(
+        filter: StorePickupFilter
+        @doc(description: "Identifies which columns to search for and return.")
+        pageSize: Int = 6
+        @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1
+        @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ): StorePickup
+    @resolver(class: "MageINIC\\StorePickupGraphQl\\Model\\Resolver\\StorePickupList")
+    @doc(description: "Store Pickup Information Filter List")
+    @cache(cacheIdentity: "MageINIC\\StorePickupGraphQl\\Model\\StorePickup\\Identity")
+    HolidayList(
+        filter: HolidayFilter
+        @doc(description: "Identifies which columns to search for and return.")
+        pageSize: Int = 6
+        @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1
+        @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ): Holiday
+    @doc(description:"Store Holiday Information Filter List")
+    @resolver(class: "MageINIC\\StorePickupGraphQl\\Model\\Resolver\\HolidayList")
+    @cache(cacheIdentity: "MageINIC\\StorePickupGraphQl\\Model\\Holiday\\Identity")
+}
+
+type CustomerOrder {
+    storePickup: [StorePickupInfo]
+    @resolver (class: "MageINIC\\StorePickupGraphQl\\Model\\Resolver\\Attribute\\StorePickup")
+}
+
+type StorePickupInfo  @doc(description: "Contains details about each of the customer's orders") {
+    store_pickup_id: String @doc(description: "Store Pickup Id")
+    pickup_date: String @doc(description: "Store Pickup Date")
+}
+
+type StorePickup {
+    total_count: Int @doc(description: "Total count")
+    total_pages: Int @doc(description: "Total count")
+    storePickupList: [StorePickupData] @doc(description: "List of collection of store pickup Data")
+}
+
+type StorePickupData {
+    entity_id: String @doc(description: "Store Pickup ID")
+    identifier: String @doc(description: "Store Pickup Identifier")
+    name: String @doc(description: "Store Pickup Name")
+    email: String @doc(description: "Store Pickup Email")
+    content: String @doc(description: "Store Pickup Content Description")
+    address: String @doc(description: "Store Pickup Address")
+    city: String @doc(description: "Store Pickup City")
+    region: String @doc(description: "Store Pickup Region")
+    state_id: String @doc(description: "Store Pickup State")
+    country_id: String @doc(description: "Store Pickup Country")
+    postcode: String @doc(description: "Store Pickup Zipcode")
+    contact_no: String @doc(description: "Store Pickup Telephone")
+    url: String @doc(description: "Store Pickup Store Url")
+    longitude: String @doc(description: "Store Pickup Longitude")
+    latitude: String @doc(description: "Store Pickup Latitude")
+    image: String @doc(description: "Store Pickup Image Name")
+    website: String @doc(description: "Website")
+    holiday_ids: String @doc(description: "Store Pickup Holiday")
+    schedule: String @doc(description: "Store Pickup Schedule")
+    created_at: String @doc(description: "Store Pickup Created At")
+    updated_at: String @doc(description: "Store Pickup Updated At")
+    meta_title: String @doc(description: "Store Pickup Meta Title")
+    meta_keywords: String @doc(description: "Store Pickup Meta Keywords")
+    meta_description: String @doc(description: "Store Pickup Meta Description")
+}
+
+input StorePickupFilter {
+    entity_id: FilterTypeInput @doc(description: "Store Pickup entity id")
+    identifier: FilterTypeInput @doc(description: "identifier")
+    name: FilterTypeInput @doc(description: "Name")
+    email: FilterTypeInput @doc(description: "Email")
+    content: FilterTypeInput @doc(description: "Store Content")
+    address: FilterTypeInput @doc(description: "Address Row One")
+    city: FilterTypeInput @doc(description: "City")
+    region: FilterTypeInput @doc(description: "region")
+    state_id: FilterTypeInput @doc(description: "Store ID")
+    country_id: FilterTypeInput @doc(description: "Country ID")
+    postcode: FilterTypeInput @doc(description: "Zipcode")
+    contact_no: FilterTypeInput @doc(description: "Contact No")
+    identifier: FilterTypeInput @doc(description: "Store Identifier")
+    latitude: FilterTypeInput @doc(description: "Latitude")
+    longitude: FilterTypeInput @doc(description: "Longitude")
+    website: FilterTypeInput @doc(description: "Website")
+    created_at: FilterTypeInput @doc(description: "Created At")
+    updated_at: FilterTypeInput @doc(description: "Updated At")
+    meta_title: FilterTypeInput @doc(description: "Meta Title")
+    meta_keywords: FilterTypeInput @doc(description: "Meta Keyword")
+}
+
+input HolidayFilter {
+    holiday_id: FilterTypeInput @doc(description: "Holiday Id")
+    name: FilterTypeInput @doc(description: "Holiday Name")
+    from_date: FilterTypeInput @doc(description: "Holiday from date")
+    to_date: FilterTypeInput @doc(description: "Holiday to date")
+    description: FilterTypeInput @doc(description: "Holiday description")
+}
+
+type Holiday {
+    total_count: Int @doc(description: "Total count")
+    total_pages: Int @doc(description: "Total Pages")
+    holidayList: [HolidayData] @doc(description: "Total List of Data")
+}
+
+type HolidayData {
+    holiday_id: String @doc(description: "Holiday Id")
+    name: String @doc(description: "Holiday Name")
+    from_date: String @doc(description: "Holiday from date")
+    to_date:String @doc(description: "Holiday to date")
+    description:String @doc(description: "Holiday description")
+}
+
+input ShippingMethodInput @doc(description: "Defines the shipping carrier and method.") {
+    store_pickup: [StorePickupInput] @doc(description: "A store pickup that identifies an offline Store Pickup delivery method data.")
+}
+
+input StorePickupInput  @doc(description: "Contains details about each of the customer's orders") {
+    store_pickup_id: String @doc(description: "Store Pickup Id")
+    pickup_date: String @doc(description: "Store Pickup Date")
+}

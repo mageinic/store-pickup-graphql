@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "280d7700-7fa2-4610-9d81-09d3ac892554",
+		"name": "StorePickup GraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "StorePickup Listing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  StorePickupList(\n    filter: {}\n    pageSize: 6\n    currentPage: 1\n  ) {\n    storePickupList {\n      address\n      city\n      contact_no\n      content\n      website\n      country_id\n      created_at\n      email\n      entity_id\n      holiday_ids\n      image\n      latitude\n      longitude\n      meta_description\n      meta_keywords\n      meta_title\n      name\n      region\n      schedule\n      state_id\n      url\n      updated_at\n      postcode\n    }\n    total_count\n    total_pages\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQl_url}}",
+					"host": [
+						"{{graphQl_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Configuration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  storeConfig {\n    store_pickup_default_radius\n    store_pickup_enable\n    store_pickup_frontend_url\n    store_pickup_google_api\n    store_pickup_length_option\n    store_pickup_max_radius\n    store_pickup_meta_description\n    store_pickup_meta_keywords\n    store_pickup_meta_title\n    store_pickup_store_link_title\n    store_pickup_store_link_location\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQl_url}}",
+					"host": [
+						"{{graphQl_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store HolidayListing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  HolidayList(\n      filter: {},\n       pageSize: 6,\n        currentPage: 1\n        ) {\n    holidayList {\n      description\n      from_date\n      holiday_id\n      name\n      to_date\n    }\n    total_count\n    total_pages\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQl_url}}",
+					"host": [
+						"{{graphQl_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Order Detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  HolidayList(\n      filter: {},\n       pageSize: 6,\n        currentPage: 1\n        ) {\n    holidayList {\n      description\n      from_date\n      holiday_id\n      name\n      to_date\n    }\n    total_count\n    total_pages\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{graphQl_url}}",
+					"host": [
+						"{{graphQl_url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
